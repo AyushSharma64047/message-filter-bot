@@ -3,6 +3,7 @@
 # Maybe you can use this for something else.
 # I first made this for @AHListBot ...
 # Edit according to your use.
+# Edited to take all queries in incoming message, not in inline by @xendaddy
 
 from configs import Config
 from pyrogram import Client, filters, idle
@@ -40,49 +41,48 @@ async def start_handler(_, event: Message):
     )
 
 
-@Bot.on_inline_query()
-async def inline_handlers(_, event: InlineQuery):
+@Bot.on_message(filters.incoming)
+async def message_handler(_, event: Message):
     answers = list()
-    # If Search Query is Empty
-    if event.query == "":
-        answers.append(
-            InlineQueryResultArticle(
-                title="This is Inline Messages Search Bot!",
-                description="You can search Channel All Messages using this bot.",
-                input_message_content=InputTextMessageContent(
-                    message_text="Using this Bot you can Search a Channel All Messages using this bot.\n\n"
-                                 "Made by @AbirHasan2005",
-                    disable_web_page_preview=True
-                ),
-                reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton("Search Here", switch_inline_query_current_chat="")],
-                    [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-                     InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
-                    [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")]
-                ])
-            )
-        )
-    # Search Channel Message using Search Query Words
-    else:
-        async for message in User.search_messages(chat_id=Config.CHANNEL_ID, limit=50, query=event.query):
-            if message.text:
-                answers.append(InlineQueryResultArticle(
-                    title="{}".format(message.text.split("\n", 1)[0]),
-                    description="{}".format(message.text.rsplit("\n", 1)[-1]),
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="")]]),
-                    input_message_content=InputTextMessageContent(
-                        message_text=message.text.markdown,
-                        parse_mode="markdown",
-                        disable_web_page_preview=True
-                    )
-                ))
+#     # If Search Query is Empty
+#     if event.text == "":
+#         await event.answer('')
+#         answers.append(
+#             InlineQueryResultArticle(
+#                 title="This is Inline Messages Search Bot!",
+#                 description="You can search Channel All Messages using this bot.",
+#                 input_message_content=InputTextMessageContent(
+#                     message_text="Using this Bot you can Search a Channel All Messages using this bot.\n\n"
+#                                  "Made by @AbirHasan2005",
+#                     disable_web_page_preview=True
+#                 ),
+#                 reply_markup=InlineKeyboardMarkup([
+#                     [InlineKeyboardButton("Search Here", switch_inline_query_current_chat="")],
+#                     [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
+#                      InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
+#                     [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")]
+#                 ])
+#             )
+#         )
+#     # Search Channel Message using Search Query Words
+#     else:
+    async for message in User.search_messages(chat_id=Config.CHANNEL_ID, limit=50, query=event.text):
+        if message.text:
+            answers.append(InlineKeyboardMarkup([InlineKeyboardButton("{}".format(message.text.split("\n", 1)[0]))])
+#                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="")]]),
+#                 input_message_content=InputTextMessageContent(
+#                     message_text=message.text.markdown,
+#                     parse_mode="markdown",
+#                     disable_web_page_preview=True
+#                 )
+#             ))
     try:
-        await event.answer(
-            results=answers,
-            cache_time=0
+        await event.reply_text(
+            'Your results:',
+            reply_markup=answers
         )
         print(f"[{Config.BOT_SESSION_NAME}] - Answered Successfully - {event.from_user.first_name}")
-    except QueryIdInvalid:
+    except:
         print(f"[{Config.BOT_SESSION_NAME}] - Failed to Answer - {event.from_user.first_name}")
 
 # Start Clients
