@@ -43,7 +43,7 @@ async def start_handler(_, event: Message):
 
 @Bot.on_message(filters.incoming)
 async def message_handler(_, event: Message):
-    answers = list()
+    answers = 'Results: \n\n'
 #     # If Search Query is Empty
 #     if event.text == "":
 #         await event.answer('')
@@ -68,7 +68,7 @@ async def message_handler(_, event: Message):
 #     else:
     async for message in User.search_messages(chat_id=Config.CHANNEL_ID, limit=50, query=event.text):
         if message.text:
-            answers.append(InlineKeyboardMarkup([InlineKeyboardButton("{}".format(message.text.split("\n", 1)[0]))])
+            answers += "- `{}` \n".format(message.text.split("\n", 1)[0]))
 #                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="")]]),
 #                 input_message_content=InputTextMessageContent(
 #                     message_text=message.text.markdown,
@@ -77,10 +77,7 @@ async def message_handler(_, event: Message):
 #                 )
 #             ))
     try:
-        await event.reply_text(
-            'Your results:',
-            reply_markup=answers
-        )
+        await event.reply_text(answers)
         print(f"[{Config.BOT_SESSION_NAME}] - Answered Successfully - {event.from_user.first_name}")
     except:
         print(f"[{Config.BOT_SESSION_NAME}] - Failed to Answer - {event.from_user.first_name}")
