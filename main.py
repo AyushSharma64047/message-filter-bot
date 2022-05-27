@@ -68,7 +68,7 @@ async def message_handler(_, event: Message):
 #     else:
     async for message in User.search_messages(chat_id=Config.CHANNEL_ID, limit=50, query=event.text):
         if message.text:
-            answers += "- `{}` \n".format(message.text.split("\n", 1)[0]))
+            answers += "- `{}` \n".format(message.text.split("\n", 1)[0])
 #                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="")]]),
 #                 input_message_content=InputTextMessageContent(
 #                     message_text=message.text.markdown,
