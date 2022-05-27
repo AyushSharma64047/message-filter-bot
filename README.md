@@ -6,7 +6,7 @@ I made this for [@AHListBot](https://t.me/AHListBot). You can use this for somet
 We have to use Bot for Inline Search & Userbot for Searching in Channels. So both Bot & Userbot will work together.
 
 ## Deploy to Heroku:
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AbirHasan2005/Message-Search-Bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/RoyalKrrishna/message-filter-bot)
 
 ### Support Group:
 <a href="https://t.me/DevsZone"><img src="https://img.shields.io/badge/Telegram-Join%20Telegram%20Group-blue.svg?logo=telegram"></a>
