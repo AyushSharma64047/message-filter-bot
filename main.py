@@ -29,20 +29,13 @@ User = Client(
 @Bot.on_message(filters.private & filters.command("start"))
 async def start_handler(_, event: Message):
     await event.reply_text(
-        "Hi, I am Messages Search Bot!\n\n"
-        "**Developer:** @AbirHasan2005\n"
-        "**Demo Bot:** @AHListBot",
-        reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-             InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
-            [InlineKeyboardButton("Developer - @AbirHasan2005")],
-            [InlineKeyboardButton("Search Inline", switch_inline_query_current_chat=""), InlineKeyboardButton("Go Inline", switch_inline_query="")]
-        ])
-    )
+        "Hi, I can search messages for you! \n\nJust send me some keywords!")
 
 
 @Bot.on_message(filters.incoming)
 async def message_handler(_, event: Message):
+    if event.text == '/start':
+        return
     answers = 'Results: \n\n'
 #     # If Search Query is Empty
 #     if event.text == "":
