@@ -46,14 +46,14 @@ async def message_handler(_, event: Message):
 #                 description="You can search Channel All Messages using this bot.",
 #                 input_message_content=InputTextMessageContent(
 #                     message_text="Using this Bot you can Search a Channel All Messages using this bot.\n\n"
-#                                  "Made by @AbirHasan2005",
+#                                  "Made by @Z_Harbour_bot",
 #                     disable_web_page_preview=True
 #                 ),
 #                 reply_markup=InlineKeyboardMarkup([
 #                     [InlineKeyboardButton("Search Here", switch_inline_query_current_chat="")],
-#                     [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-#                      InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
-#                     [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")]
+#                     [InlineKeyboardButton("Support Group", url="https://t.me/z_harbour"),
+#                      InlineKeyboardButton("Bots Channel", url="https://t.me/z_harbour")],
+#                     [InlineKeyboardButton("Developer - @Z_Harbour_bot", url="https://t.me/Z_Harbour_bot")]
 #                 ])
 #             )
 #         )
